@@ -9,3 +9,12 @@ main {
 h3 {
   padding: 1rem 0;
 }
+
+.navbar {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+#addcart {
+  border-radius: 0%;
+}
