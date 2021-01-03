@@ -18,3 +18,22 @@ h3 {
 #addcart {
   border-radius: 0%;
 }
+
+.link {
+  color: #2c3e50;
+}
+
+.link :hover {
+  color: #7b818b;
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+
+h2 {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}

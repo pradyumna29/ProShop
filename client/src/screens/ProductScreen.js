@@ -8,7 +8,7 @@ import Loader from '../components/Loader'
 import { listProductDetail } from '../redux/actions/productActions'
 
 const ProductScreen = ({ match, history }) => {
-  const [qty, setQty] = useState(0)
+  const [qty, setQty] = useState(1)
 
   const dispatch = useDispatch()
   //useSelector grabs a part of state
@@ -98,7 +98,7 @@ const ProductScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   <Button
                     onClick={addToCartHandler}
-                    className='btn-block btn-success'
+                    className='btn-block btn-dark'
                     id='addcart'
                     type='button'
                     disabled={product.countInStock === 0}
