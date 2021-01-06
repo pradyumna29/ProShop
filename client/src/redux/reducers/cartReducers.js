@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actions/types'
 
 export const cartReducer = (
-  state = { cartItems: [], shippingAddress: {} },
+  state = { cartItems: [], shippingAddress: {}, paymentMethod: '' },
   action
 ) => {
   switch (action.type) {
