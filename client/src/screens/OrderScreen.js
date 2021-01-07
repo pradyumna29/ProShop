@@ -48,7 +48,9 @@ const OrderScreen = ({ match }) => {
                 {order.shippingAddress.country}
               </div>
               {order.deliveredAt ? (
-                <Message variant='success'>Delivered on {order.deliveredAt}</Message>
+                <Message variant='success'>
+                  Delivered on {order.deliveredAt}
+                </Message>
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
               )}
