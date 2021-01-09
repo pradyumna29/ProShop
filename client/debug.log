@@ -24,3 +24,18 @@
 [0107/173201.549:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [0107/213352.416:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [0108/104033.234:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[0108/182631.645:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/182631.704:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/182631.704:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/193021.304:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/193021.359:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/193021.359:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/194021.327:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/194021.327:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/194021.327:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0108/194021.327:ERROR:filesystem_win.cc(116)] GetFileAttributes C:\Users\Pradyumna Gupta\AppData\Local\Google\Chrome\User Data\Crashpad\reports\b0627616-5e46-490b-91dd-a4ab1c51206c.dmp: The system cannot find the file specified. (0x2)
+[0108/194021.328:ERROR:filesystem_win.cc(116)] GetFileAttributes C:\Users\Pradyumna Gupta\AppData\Local\Google\Chrome\User Data\Crashpad\reports\b076d570-13d0-4872-906f-df75ed00bbe2.dmp: The system cannot find the file specified. (0x2)
+[0108/194021.328:ERROR:filesystem_win.cc(116)] GetFileAttributes C:\Users\Pradyumna Gupta\AppData\Local\Google\Chrome\User Data\Crashpad\reports\f18bf2f2-d1d5-4a08-8694-a7e554b81d0a.dmp: The system cannot find the file specified. (0x2)
+[0108/194021.328:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[0108/220824.970:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[0109/105338.685:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
