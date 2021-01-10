@@ -4,7 +4,8 @@ import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserdetails } from '../redux/actions/userActions'
+import { getUserdetails, editUser } from '../redux/actions/userActions'
+import { USER_EDIT_RESET } from '../redux/actions/types'
 import FormContainer from '../components/FormContainer'
 
 const UserEditScreen = ({ match, history }) => {
@@ -19,7 +20,23 @@ const UserEditScreen = ({ match, history }) => {
 
   const { loading, error, user } = userDetails
 
+  const userEdit = useSelector(state => state.userEdit)
+
+  const {
+    loading: loadingEdit,
+    error: errorEdit,
+    success: successEdit,
+  } = userEdit
+
   useEffect(() => {
+    if (successEdit) {
+      dispatch({ type: USER_EDIT_RESET })
+      history.push('/admin/userlist')
+    } else {
+      setName(user.name)
+      setEmail(user.email)
+      setIsAdmin(user.isAdmin)
+    }
     if (!user.name || user._id !== userId) {
       dispatch(getUserdetails(userId))
     } else {
@@ -27,10 +44,11 @@ const UserEditScreen = ({ match, history }) => {
       setEmail(user.email)
       setIsAdmin(user.isAdmin)
     }
-  }, [user, dispatch, userId])
+  }, [user, dispatch, userId, successEdit, history])
 
   const submitHandler = e => {
     e.preventDefault()
+    dispatch(editUser({ _id: userId, name, email, isAdmin }))
   }
 
   return (
@@ -40,6 +58,8 @@ const UserEditScreen = ({ match, history }) => {
       </Link>
       <FormContainer>
         <h1>Edit User</h1>
+        {loadingEdit && <Loader />}
+        {errorEdit && <Message variant='danger'>{errorEdit}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
