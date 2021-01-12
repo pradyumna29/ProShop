@@ -4,8 +4,11 @@ import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listProductDetail } from '../redux/actions/productActions'
-import { USER_EDIT_RESET } from '../redux/actions/types'
+import {
+  listProductDetail,
+  updateProduct,
+} from '../redux/actions/productActions'
+import { PRODUCT_UPDATE_RESET } from '../redux/actions/types'
 import FormContainer from '../components/FormContainer'
 
 const ProductEditScreen = ({ match, history }) => {
@@ -21,10 +24,29 @@ const ProductEditScreen = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const productDetails = useSelector(state => state.productDetails)
-
   const { loading, error, product } = productDetails
 
+  const productUpdate = useSelector(state => state.productUpdate)
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate
+
   useEffect(() => {
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET })
+      history.push('/admin/productlist')
+    } else {
+      setName(product.name)
+      setPrice(product.price)
+      setCategory(product.category)
+      setBrand(product.brand)
+      setDescription(product.description)
+      setImage(product.image)
+      setCountInStock(product.countInStock)
+    }
+
     if (!product.name || product._id !== productId) {
       dispatch(listProductDetail(productId))
     } else {
@@ -36,10 +58,22 @@ const ProductEditScreen = ({ match, history }) => {
       setImage(product.image)
       setCountInStock(product.countInStock)
     }
-  }, [product, dispatch, productId, history])
+  }, [product, dispatch, productId, history, successUpdate])
 
   const submitHandler = e => {
     e.preventDefault()
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        description,
+        countInStock,
+      })
+    )
   }
 
   return (
@@ -49,6 +83,8 @@ const ProductEditScreen = ({ match, history }) => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
@@ -79,7 +115,7 @@ const ProductEditScreen = ({ match, history }) => {
                 type='text'
                 value={image}
                 placeholder='Enter image url'
-                onChange={e => setImage(e.target.image)}
+                onChange={e => setImage(e.target.value)}
               ></Form.Control>
             </Form.Group>
             <Form.Group controlId='brand'>
@@ -88,16 +124,16 @@ const ProductEditScreen = ({ match, history }) => {
                 type='text'
                 value={brand}
                 placeholder='Enter brand'
-                onChange={e => setBrand(e.target.brand)}
+                onChange={e => setBrand(e.target.value)}
               ></Form.Control>
             </Form.Group>
             <Form.Group controlId='countInStock'>
               <Form.Label>Count In Stock</Form.Label>
               <Form.Control
-                type='text'
+                type='number'
                 value={countInStock}
                 placeholder='Enter Count In Stock'
-                onChange={e => setCountInStock(e.target.countInStock)}
+                onChange={e => setCountInStock(e.target.value)}
               ></Form.Control>
             </Form.Group>
             <Form.Group controlId='category'>
@@ -106,7 +142,7 @@ const ProductEditScreen = ({ match, history }) => {
                 type='text'
                 value={category}
                 placeholder='Enter category'
-                onChange={e => setCategory(e.target.category)}
+                onChange={e => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
             <Form.Group controlId='description'>
@@ -115,7 +151,7 @@ const ProductEditScreen = ({ match, history }) => {
                 type='text'
                 value={description}
                 placeholder='Enter description'
-                onChange={e => setDescription(e.target.description)}
+                onChange={e => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
             <Button type='submit' variant='dark'>
