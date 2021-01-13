@@ -6,21 +6,32 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getOrderDetails, payOrder } from '../redux/actions/orderActions'
-import { ORDER_PAY_RESET } from '../redux/actions/types'
+import {
+  deliverOrder,
+  getOrderDetails,
+  payOrder,
+} from '../redux/actions/orderActions'
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../redux/actions/types'
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
   const orderDetails = useSelector(state => state.orderDetails)
+  const userLogin = useSelector(state => state.userLogin)
   const orderPay = useSelector(state => state.orderPay)
+  const orderDeliver = useSelector(state => state.orderDeliver)
 
   const dispatch = useDispatch()
 
   const { order, loading, error } = orderDetails
+  const { userInfo } = userLogin
   const { loading: loadingPay, success: successPay } = orderPay
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver
 
   const [sdkReady, setSdkReady] = useState(false)
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
     const addpayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal')
       const script = document.createElement('script')
@@ -33,8 +44,10 @@ const OrderScreen = ({ match }) => {
       document.body.appendChild(script)
     }
 
-    if (!order || successPay) {
+    if (!order || successPay || successDeliver) {
       dispatch({ type: ORDER_PAY_RESET })
+      dispatch({ type: ORDER_DELIVER_RESET })
+
       dispatch(getOrderDetails(orderId))
     } else if (!order.isPaid) {
       if (!window.payPal) {
@@ -43,11 +56,15 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, orderId, successPay, order])
+  }, [dispatch, history, userInfo, orderId, successDeliver, successPay, order])
 
   const successPaymentHandler = paymentResult => {
     console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
+  }
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order))
   }
 
   return loading ? (
@@ -79,6 +96,7 @@ const OrderScreen = ({ match }) => {
                 {order.shippingAddress.postalCode},{' '}
                 {order.shippingAddress.country}
               </div>
+              {loadingDeliver && <Loader />}
               {order.deliveredAt ? (
                 <Message variant='success'>
                   Delivered on {order.deliveredAt}
@@ -179,6 +197,21 @@ const OrderScreen = ({ match }) => {
                   )}
                 </ListGroup.Item>
               )}
+
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item>
+                    <button
+                      type='button'
+                      className='btn btn-outline-success btn-block'
+                      onClick={deliverHandler}
+                    >
+                      Mark As Delivered
+                    </button>
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>

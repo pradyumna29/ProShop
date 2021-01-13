@@ -50,3 +50,13 @@
 [0112/195155.645:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [0113/102932.903:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [0113/154800.229:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[0113/223146.060:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0113/223146.204:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0113/223146.204:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0113/224144.810:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0113/224144.811:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0113/224144.811:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[0113/224144.811:ERROR:filesystem_win.cc(116)] GetFileAttributes C:\Users\Pradyumna Gupta\AppData\Local\Google\Chrome\User Data\Crashpad\reports\95d22c9f-06ab-4a15-97d6-c6b83c10fae5.dmp: The system cannot find the file specified. (0x2)
+[0113/224144.811:ERROR:filesystem_win.cc(116)] GetFileAttributes C:\Users\Pradyumna Gupta\AppData\Local\Google\Chrome\User Data\Crashpad\reports\5b36ae2d-ce60-4dde-95cf-4053c05f9029.dmp: The system cannot find the file specified. (0x2)
+[0113/224144.811:ERROR:filesystem_win.cc(116)] GetFileAttributes C:\Users\Pradyumna Gupta\AppData\Local\Google\Chrome\User Data\Crashpad\reports\71e2bc47-403a-4c28-94fd-fa388bc7cc6f.dmp: The system cannot find the file specified. (0x2)
+[0113/224144.811:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
